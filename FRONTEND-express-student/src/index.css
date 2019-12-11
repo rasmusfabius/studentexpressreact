@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.studentForm {
+  border: 2px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+.user-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.user-title {
+  font-size: smaller;
+  line-height: 18px;
+}
+
+.student-container {
+  display: flex;
+  align-items: center;
+}
+
+.details-container {
+  margin-left: 10px;
+  flex: 1 1 auto;
+}
+
+.button-modal {
+  margin-top: 10px;
+    margin-bottom: 10px;
+}
