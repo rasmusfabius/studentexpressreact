@@ -1,10 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const axios = require('axios');
-
 const router = express.Router(); // will be the middleware that will take care for this route
-
 const projectsFilePath = path.join(__dirname, 'projects.json');
 /***
  * read a file and decode the content
@@ -54,9 +51,6 @@ router.post('/', async (req, res) => {
   req.body._id = Date.now(); //create a new id
   req.body.creationTime = new Date(); //add the creationTime
   req.body.studentID = previousProjects.length + 1;
-  if (req.body.picture && req.body.picture.indexOf('http') >= 0) {
-    req.body.picture = await fetchImage(req.body.picture);
-  }
 
   previousProjects.push(req.body); //push the item into the students array
   fs.writeFileSync(projectsFilePath, JSON.stringify(previousProjects)); //override the previous array on the harddrive

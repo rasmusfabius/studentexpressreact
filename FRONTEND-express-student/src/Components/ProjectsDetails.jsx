@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { Container, button, label, input } from 'reactstrap';
-import StudentList from "./StudentList";
+import ProjectList from "./ProjectsList";
 import { Api } from "../Api";
 import { Button, Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 
 
-class StudentDetails extends Component {
+class ProjectDetails extends Component {
     state = { modal: false };
     onFormSubmit = (e) => {
         if (this.state._id) {
-            Api.fetch("/students/" + this.state._id, "PUT", this.state).then(res => {
+            Api.fetch("/projects/" + this.state._id, "PUT", this.state).then(res => {
                 console.log("edit", res);
                 this.props.refresh();
             });
 
         } else {
-            Api.fetch("/students", "POST", this.state).then(res => {
+            Api.fetch("/projects/", "POST", this.state).then(res => {
                 console.log("inserted", res);
                 this.props.refresh()
             });
@@ -27,14 +27,14 @@ class StudentDetails extends Component {
         this.setState({ [e.target.id]: e.target.value });
     };
     formRequire = (e) => {
-        return !(this.state.name && this.state.surname && this.state.email);
+        return !(this.state.name && this.state.description && this.state.repourl && this.state.liveurl);
     };
     toggle = () => {
         this.setState({ modal: !this.state.modal });
     };
-    onEdit = (student) => {
-        console.log(student);
-        this.setState({ ...student });
+    onEdit = (project) => {
+        console.log(project);
+        this.setState({ ...project });
         this.toggle();
     };
 
@@ -45,11 +45,11 @@ class StudentDetails extends Component {
                     <Col>
                         <div className="button-modal">
                             <button className="btn btn-primary" onClick={this.toggle}><i
-                                className="far fa-edit" id="newsfeedPencil"></i> Add Student
+                                className="far fa-edit" id="newsfeedPencil"></i> Add Student Project
                         </button>
                         </div>
                         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                            <ModalHeader className="modalHeaderNfModal" toggle={this.toggle}>Enter Student
+                            <ModalHeader className="modalHeaderNfModal" toggle={this.toggle}>Enter Project
                                 Details</ModalHeader>
                             <ModalBody>
                                 <Container className={'studentForm'}>
@@ -57,15 +57,15 @@ class StudentDetails extends Component {
                                     <form autoComplete="off" id="form">
                                         <div className="form-row">
                                             <div className="form-group col-md-6">
-                                                <label>Name</label>
-                                                <input type="text" className="form-control" id="name" placeholder="Name"
+                                                <label>Project Name</label>
+                                                <input type="text" className="form-control" id="name" placeholder="Project Name"
                                                     defaultValue={this.state.name}
                                                     onChange={this.updateForm} />
                                             </div>
                                             <div className="form-group col-md-6">
-                                                <label>Surname</label>
-                                                <input type="text" className="form-control" id="surname"
-                                                    placeholder="Surname" defaultValue={this.state.surname}
+                                                <label>Description</label>
+                                                <input type="text" className="form-control" id="description"
+                                                    placeholder="Description" defaultValue={this.state.description}
                                                     onChange={this.updateForm} />
                                             </div>
 
@@ -77,29 +77,18 @@ class StudentDetails extends Component {
                                                 defaultValue={this.state.studentID} disabled />
                                         </div>
                                         <div className="form-group">
-                                            <label>Email</label>
+                                            <label>RepoUrl</label>
                                             <input type="text" className="form-control" id="email"
-                                                placeholder="example@strive.com" onChange={this.updateForm}
-                                                defaultValue={this.state.email} />
+                                                placeholder="" onChange={this.updateForm}
+                                                defaultValue={this.state.repourl} />
                                         </div>
                                         <div className="form-group">
-                                            <label>Date of Birth </label>
-                                            <input
-                                                type="date"
-                                                name="date"
-                                                id="date"
-                                                placeholder="date placeholder"
-                                                onChange={this.updateForm}
-                                                defaultValue={this.state.date}
-                                            />
+                                            <label>Live Url</label>
+                                            <input type="text" className="form-control" id="liveurl"
+                                                placeholder="" onChange={this.updateForm}
+                                                defaultValue={this.state.liveurl} />
+                                        </div>
 
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Picture</label>
-                                            <textarea className="form-control" id="picture"
-                                                defaultValue={this.state.picture}
-                                                placeholder="http://..." onChange={this.updateForm} />
-                                        </div>
                                         <button type="button" className="btn btn-primary"
                                             disabled={this.formRequire() ? 'disabled' : null}
                                             onClick={this.onFormSubmit}>Submit
@@ -112,7 +101,7 @@ class StudentDetails extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <StudentList students={this.props.students} refresh={this.props.refresh} onEdit={this.onEdit} />
+                        <ProjectList projects={this.props.projects} refresh={this.props.refresh} onEdit={this.onEdit} />
                     </Col>
                 </Row>
             </Container>
@@ -120,4 +109,4 @@ class StudentDetails extends Component {
     }
 }
 
-export default StudentDetails;
+export default ProjectDetails;
